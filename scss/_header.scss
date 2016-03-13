@@ -1,0 +1,15 @@
+header{
+  width: 100vw;
+  height: 65px;
+  background-color: $fresh;
+  position: fixed;
+  top: 0;
+  margin: 0;
+  h1{
+    font-size: 2.5em;
+    margin: 15px 20px;
+    font-family: 'Loved by the King', cursive;
+    font-weight: bold;
+    color: $vermillion;
+  }
+}
