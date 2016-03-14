@@ -1,2 +1,6 @@
 .sass-cache/
 firebase.json
+node_modules/
+dist/
+dist/bundle.js
+npm-debug.log

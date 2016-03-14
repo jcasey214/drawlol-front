@@ -1,4 +1,4 @@
-app.controller('HomeController', function($scope) {
+module.exports = angular.module('drawlol').controller('HomeController', function($scope) {
   $scope.greeting = "Hello World!";
 }).controller('CreateController', function($scope){
   $scope.greeting = "Hello World!";

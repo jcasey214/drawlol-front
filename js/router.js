@@ -1,4 +1,4 @@
-app.config(function($routeProvider, $locationProvider){
+module.exports = angular.module('drawlol').config(function($routeProvider, $locationProvider){
   $routeProvider
   .when('/', {
     templateUrl: 'partials/home.html',
