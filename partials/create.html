@@ -6,5 +6,6 @@
   </div>
   <button type="button" class="createButton" ng-click="createGame()" ng-hide="gameCreated">Click Here to Create a Game!</button>
   <h1 class="createGame" ng-show="gameCreated">Send this link to your friends and join in the game</h1>
-  <a ng-href=""><button type="button" class="createButton" ng-click="joinGame()" ng-show="gameCreated">Click Here to Join a Game!</button></a>
+  <h1 class="createGame" ng-show="gameCreated">{{host}}{{gamePath}}</h1>
+  <a ng-href="{{host}}{{gamePath}}"><button type="button" class="createButton" ng-click="joinGame()" ng-show="gameCreated">Click Here to Join a Game!</button></a>
 </div>

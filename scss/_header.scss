@@ -5,7 +5,10 @@ header{
   position: fixed;
   top: 0;
   margin: 0;
-  a:hover a:link a:visited {
+  a {
+    text-decoration: none;
+  }
+  a:hover, a:link, a:visited {
     text-decoration: none;
   }
   h1{
@@ -15,8 +18,12 @@ header{
     font-weight: bolder;
     color: $vermillion;
     text-shadow: 1px 1px 2px black;
+    text-decoration: none;
     span{
       color: $sunshine;
     }
+  }
+  h1:hover, h1:link, h1:visited{
+    text-decoration: none;
   }
 }
