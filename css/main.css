@@ -58,11 +58,75 @@ header {
   position: fixed;
   top: 0;
   margin: 0; }
+  header a:hover a:link a:visited {
+    text-decoration: none; }
   header h1 {
     font-size: 2.5em;
     margin: 15px 20px;
-    font-family: 'Loved by the King', cursive;
-    font-weight: bold;
-    color: #FC4A1A; }
+    font-family: "Loved by the King", cursive;
+    font-weight: bolder;
+    color: #FC4A1A;
+    text-shadow: 1px 1px 2px black; }
+    header h1 span {
+      color: #F7B733; }
+
+footer {
+  position: sticky;
+  bottom: 0;
+  left: 0;
+  width: 100vw;
+  height: 50px;
+  background-color: #4ABDAC; }
+
+.hero {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 75px; }
+  .hero .jumbo {
+    width: 70%;
+    height: 50vh;
+    background-image: url("https://images.contentful.com/mnc2gcng0j8q/1YLxrTDORCQsAAGOYKI4qO/8c438acce6529ec0672e1285dc8bfbf1/justworks-resources-page.jpg");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover; }
+    .hero .jumbo div {
+      margin: 30px;
+      width: 40%; }
+      .hero .jumbo div h1 {
+        font-size: 3.5em;
+        font-family: "Loved by the King", cursive;
+        font-weight: bolder;
+        color: #FC4A1A;
+        text-shadow: 1px 1px 2px black; }
+        .hero .jumbo div h1 span {
+          color: #F7B733; }
+      .hero .jumbo div h2 {
+        font-size: 2em;
+        color: #4ABDAC; }
+  .hero .homeCopy {
+    width: 70%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around; }
+    .hero .homeCopy .copyColumn {
+      width: 30%;
+      margin: 40px 10px 100px 10px;
+      background-color: rgba(247, 183, 51, 0.3);
+      background-opacity: 0.3;
+      padding: 10px;
+      height: 100%; }
+      .hero .homeCopy .copyColumn h3 {
+        font-size: 1.5em;
+        font-weight: bolder;
+        width: 100%;
+        text-align: center; }
+      .hero .homeCopy .copyColumn p {
+        margin-top: 10px;
+        font-size: 1.1em;
+        line-height: 120%; }
 
 /*# sourceMappingURL=main.css.map */

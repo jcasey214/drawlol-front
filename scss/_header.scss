@@ -5,11 +5,18 @@ header{
   position: fixed;
   top: 0;
   margin: 0;
+  a:hover a:link a:visited {
+    text-decoration: none;
+  }
   h1{
     font-size: 2.5em;
     margin: 15px 20px;
-    font-family: 'Loved by the King', cursive;
-    font-weight: bold;
+    font-family: $logoFont;
+    font-weight: bolder;
     color: $vermillion;
+    text-shadow: 1px 1px 2px black;
+    span{
+      color: $sunshine;
+    }
   }
 }

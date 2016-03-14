@@ -1,23 +1,23 @@
 app.config(function($routeProvider, $locationProvider){
   $routeProvider
   .when('/', {
-    templateUrl: 'home.html',
+    templateUrl: 'partials/home.html',
     controller: 'HomeController'
   })
   .when('/create', {
-    templateUrl: 'create.html',
+    templateUrl: 'partials/create.html',
     controller: 'CreateController'
   })
   .when('/join', {
-    templateUrl: 'join.html',
+    templateUrl: 'partials/join.html',
     controller: 'JoinController'
   })
   .when('/play/:game_id', {
-    templateUrl: 'game.html',
+    templateUrl: 'partials/game.html',
     controller: 'GameController'
   })
   .when('/complete/:game_id', {
-    templateUrl: 'complete.html',
-    controller: 'CompleteController'  
+    templateUrl: 'partials/complete.html',
+    controller: 'CompleteController'
   })
 })
