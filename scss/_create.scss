@@ -1,0 +1,37 @@
+.createJoin {
+  margin-top: 100px;
+  height: 100vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  h1{
+    font-size: 3em;
+    color: $vermillion;
+
+  }
+  .createUsername {
+    display: flex;
+    margin-top: 50px;
+    flex-direction: column;
+    align-items: flex-start;
+    label {
+      color: $sunshine;
+      font-size: .75em;
+    }
+    input {
+      background-color: $clean;
+      font-size: 1.5em;
+      box-shadow: 5px 5px 5px black;
+    }
+  }
+  .createButton {
+    margin-top: 50px;
+    background-color: $sunshine;
+    border: 1px solid $sunshine;
+    border-radius: 5px;
+    font-size: 1.5em;
+    padding: 10px;
+    color: $clean;
+  }
+}

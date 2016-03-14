@@ -51,6 +51,9 @@ html {
 body {
   background-color: #DFDCE3; }
 
+main {
+  height: 100%; }
+
 header {
   width: 100vw;
   height: 65px;
@@ -92,7 +95,11 @@ footer {
     background-image: url("https://images.contentful.com/mnc2gcng0j8q/1YLxrTDORCQsAAGOYKI4qO/8c438acce6529ec0672e1285dc8bfbf1/justworks-resources-page.jpg");
     background-repeat: no-repeat;
     background-attachment: fixed;
-    background-size: cover; }
+    background-size: cover;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: stretch; }
     .hero .jumbo div {
       margin: 30px;
       width: 40%; }
@@ -107,6 +114,17 @@ footer {
       .hero .jumbo div h2 {
         font-size: 2em;
         color: #4ABDAC; }
+    .hero .jumbo button.createGame {
+      background-color: #F7B733;
+      color: #DFDCE3;
+      font-size: 1.5em;
+      font-weight: bolder;
+      padding: 10px;
+      align-self: baseline;
+      margin: 50% 20% 0 0;
+      border: 1px solid #F7B733;
+      border-radius: 5px;
+      width: 100%; }
   .hero .homeCopy {
     width: 70%;
     display: flex;
@@ -128,5 +146,36 @@ footer {
         margin-top: 10px;
         font-size: 1.1em;
         line-height: 120%; }
+
+.createJoin {
+  margin-top: 100px;
+  height: 100vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start; }
+  .createJoin h1 {
+    font-size: 3em;
+    color: #FC4A1A; }
+  .createJoin .createUsername {
+    display: flex;
+    margin-top: 50px;
+    flex-direction: column;
+    align-items: flex-start; }
+    .createJoin .createUsername label {
+      color: #F7B733;
+      font-size: .75em; }
+    .createJoin .createUsername input {
+      background-color: #DFDCE3;
+      font-size: 1.5em;
+      box-shadow: 5px 5px 5px black; }
+  .createJoin .createButton {
+    margin-top: 50px;
+    background-color: #F7B733;
+    border: 1px solid #F7B733;
+    border-radius: 5px;
+    font-size: 1.5em;
+    padding: 10px;
+    color: #DFDCE3; }
 
 /*# sourceMappingURL=main.css.map */

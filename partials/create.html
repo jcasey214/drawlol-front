@@ -1,0 +1,10 @@
+<div class="createJoin">
+  <h1 class="createGame" ng-hide="gameCreated">Create a New Game and Invite Your Friends</h1>
+  <div class="createUsername" ng-hide="gameCreated">
+    <label for="createUsername">Create a Username</label>
+    <input type="text" id="createUsername" name="username" ng-model="createUsername" />
+  </div>
+  <button type="button" class="createButton" ng-click="createGame()" ng-hide="gameCreated">Click Here to Create a Game!</button>
+  <h1 class="createGame" ng-show="gameCreated">Send this link to your friends and join in the game</h1>
+  <a ng-href=""><button type="button" class="createButton" ng-click="joinGame()" ng-show="gameCreated">Click Here to Join a Game!</button></a>
+</div>

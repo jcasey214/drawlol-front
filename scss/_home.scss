@@ -13,6 +13,10 @@
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-size: cover;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: stretch;
     div {
       margin: 30px;
       width: 40%;
@@ -30,6 +34,18 @@
         font-size: 2em;
         color: $fresh;
       }
+    }
+    button.createGame {
+      background-color: $sunshine;
+      color: $clean;
+      font-size: 1.5em;
+      font-weight: bolder;
+      padding: 10px;
+      align-self: baseline;
+      margin: 50% 20% 0 0;
+      border: 1px solid $sunshine;
+      border-radius: 5px;
+      width: 100%;
     }
   }
   .homeCopy {
