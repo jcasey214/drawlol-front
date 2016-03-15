@@ -1,38 +1,65 @@
 .game{
   width: 100vw;
-  height: 100vh;
+  height: 90vh;
   margin-top: 80px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   .gameMain {
-    width: 90%;
+    width: 100%;
     height: 100%;
     display: flex;
     flex-direction: row;
-    align-items: space-between;
-    justify-content: space-between;
-    .gameUsers {
-      width: 20%;
-      height: 70%;
-      border: 1px solid black;
+    align-items: space-around;
+    justify-content: space-around;
+    .aside {
+      width: 30%;
+      height: 80%;
+      .gameUsers {
+        width: 100%;
+        height: 30%;
+        border: 1px solid red;
+      }
+      .gameChat {
+        width: 100%;
+        height: 70%;
+        border: 1px solid blue;
+      }
     }
     .gameInteraction {
-      width: 45%;
-      height: 70%;
-      border: 1px solid black;
+      width: 55%;
+      height: 80%;
+      .write {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: flex-end;
+        #sentence {
+          display: inline-block;
+          font-size: 1.5em;
+          width: 79%;
+          margin: 10px 0 0 0;
+          background-color: white;
+          border: none;
+          padding: 5px;
+        }
+        button {
+          display: inline-block;
+          width: 20%;
+          height: 100%;
+          background-color: $sunshine;
+          border: none;
+          font-size: 1.5em;
+          padding: 8px;
+          color: $clean;
+        }
+      }
       .canvas-container {
         overflow: hidden;
         #c {
-          border: 1px solid red;
         }
       }
-    }
-    .gameChat {
-      width: 20%;
-      height: 70%;
-      border: 1px solid black;
     }
   }
 }

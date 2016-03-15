@@ -7,12 +7,16 @@
 <div ng-show="username" class="game">
   <h1 class="createGame">Draw &amp; LOL</h1></h1>
   <div class="gameMain">
-    <div class="gameUsers"></div>
-    <div class="gameInteraction">
-      <canvas draw id="c" ng-model="drawing">
-      </canvas>
-      <button type="button" ng-click="send()">Submit</button>
+    <div class="aside">
+      <div class="gameUsers"></div>
+      <div class="gameChat"></div>
     </div>
-    <div class="gameChat"></div>
+      <div class="gameInteraction">
+      <canvas draw id="c" ng-model="drawing"></canvas>
+      <div class="write">
+        <input type="text" ng-model="sentence" id="sentence" name="sentence" placeholder="Type a sentence describing the picture above..."></input>
+        <button type="button" ng-click="send()">Submit</button>
+      </div>
+    </div>
   </div>
 </div>
