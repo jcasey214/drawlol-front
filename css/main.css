@@ -201,20 +201,19 @@ footer {
     justify-content: space-between; }
     .game .gameMain .gameUsers {
       width: 20%;
-      height: 100%;
+      height: 70%;
       border: 1px solid black; }
     .game .gameMain .gameInteraction {
       width: 45%;
-      height: 100%;
+      height: 70%;
       border: 1px solid black; }
-      .game .gameMain .gameInteraction canvas {
-        width: 100%;
-        height: 100%;
-        background: white;
-        z-index: 1; }
+      .game .gameMain .gameInteraction .canvas-container {
+        overflow: hidden; }
+        .game .gameMain .gameInteraction .canvas-container #c {
+          border: 1px solid red; }
     .game .gameMain .gameChat {
       width: 20%;
-      height: 100%;
+      height: 70%;
       border: 1px solid black; }
 
 /*# sourceMappingURL=main.css.map */

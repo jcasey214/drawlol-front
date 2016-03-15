@@ -9,23 +9,10 @@
   <div class="gameMain">
     <div class="gameUsers"></div>
     <div class="gameInteraction">
-      <canvas id="canvas">
+      <canvas draw id="c" ng-model="drawing">
       </canvas>
+      <button type="button" ng-click="send()">Submit</button>
     </div>
     <div class="gameChat"></div>
   </div>
 </div>
-<script src="lib/fabric.js"></script>
-  <script>
-    var canvas = new fabric.Canvas('canvas');
-
-    var rect = new fabric.Rect({
-        top : 100,
-        left : 100,
-        width : 60,
-        height : 70,
-        fill : 'red'
-    });
-
-    canvas.add(rect);
-  </script> 

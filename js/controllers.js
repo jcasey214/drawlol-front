@@ -20,7 +20,7 @@ module.exports = angular.module('drawlol').controller('HomeController', function
   }
 }).controller('JoinController', function($scope){
   $scope.greeting = "Hello World!";
-}).controller('GameController', function($scope, $routeParams, UsernameFactory){
+}).controller('GameController', function($scope, $routeParams, UsernameFactory, $document){
   $scope.username = UsernameFactory.getUsername();
   $scope.room = $routeParams.game_id;
   $scope.assignUsername = function(){
@@ -44,6 +44,15 @@ module.exports = angular.module('drawlol').controller('HomeController', function
   $scope.$on('$destroy', function(){
     socket.emit('bailsor', {room: $scope.room, bailed: true})
   });
+  $scope.send = function(){
+    console.log("send");
+    console.log($scope.canvas);
+    var svg = $scope.canvas.toSVG({suppressPreamble: true});
+    console.log(svg);
+  }
+}).controller('CanvasController', function($scope, UsernameFactory){
+  $scope.username = UsernameFactory.getUsername();
+  $scope.canvas = new fabric.Canvas('drawingCanvas');
 }).controller('CompleteController', function($scope){
   $scope.greeting = "Hello World!";
 });
