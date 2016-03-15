@@ -1,3 +1,31 @@
-<h1 class="createGame">{{room}}</h1>
-<div id="messages" width="50%" height="50%"></div>
-<input id="chat-input" type="text" />
+<div ng-hide="username" style="margin: 100px">
+  <label for="username">Type in a username and click join</label>
+  <input type="text" ng-model="createUsername" />
+  <button type="button" ng-click="assignUsername()">Join the Game</button>
+</div>
+
+<div ng-show="username" class="game">
+  <h1 class="createGame">Draw &amp; LOL</h1></h1>
+  <div class="gameMain">
+    <div class="gameUsers"></div>
+    <div class="gameInteraction">
+      <canvas id="canvas">
+      </canvas>
+    </div>
+    <div class="gameChat"></div>
+  </div>
+</div>
+<script src="lib/fabric.js"></script>
+  <script>
+    var canvas = new fabric.Canvas('canvas');
+
+    var rect = new fabric.Rect({
+        top : 100,
+        left : 100,
+        width : 60,
+        height : 70,
+        fill : 'red'
+    });
+
+    canvas.add(rect);
+  </script> 

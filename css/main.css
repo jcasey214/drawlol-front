@@ -184,4 +184,37 @@ footer {
     padding: 10px;
     color: #DFDCE3; }
 
+.game {
+  width: 100vw;
+  height: 100vh;
+  margin-top: 80px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center; }
+  .game .gameMain {
+    width: 90%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: space-between;
+    justify-content: space-between; }
+    .game .gameMain .gameUsers {
+      width: 20%;
+      height: 100%;
+      border: 1px solid black; }
+    .game .gameMain .gameInteraction {
+      width: 45%;
+      height: 100%;
+      border: 1px solid black; }
+      .game .gameMain .gameInteraction canvas {
+        width: 100%;
+        height: 100%;
+        background: white;
+        z-index: 1; }
+    .game .gameMain .gameChat {
+      width: 20%;
+      height: 100%;
+      border: 1px solid black; }
+
 /*# sourceMappingURL=main.css.map */
