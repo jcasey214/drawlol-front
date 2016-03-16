@@ -5,18 +5,20 @@
 </div>
 
 <div ng-show="username" class="game">
-  <h1 class="createGame">Draw &amp; LOL</h1></h1>
+  <h1 class="gameHeader">Draw &amp; LOL</h1></h1>
   <div class="gameMain">
     <div class="aside">
       <div class="gameUsers"></div>
       <div class="gameChat"></div>
+      <button type="button" ng-click="startGame()" ng-show="showStartButton">Start Game</button>
     </div>
-      <div class="gameInteraction">
-      <canvas draw id="c" ng-model="drawing"></canvas>
-      <div class="write">
-        <input type="text" ng-model="sentence" id="sentence" name="sentence" placeholder="Type a sentence describing the picture above..."></input>
-        <button type="button" ng-click="send()">Submit</button>
-      </div>
+    <div class="gameInteraction" ng-switch on="phase">
+    <canvas draw id="c" ng-model="drawing" ng-switch-when="draw"></canvas>
+    <canvas view id="d" ng-model="viewing" ng-switch-when="view"></canvas>
+    <div class="write">
+      <input type="text" ng-model="sentence" id="sentence" name="sentence" placeholder="Type a sentence describing the picture above..."></input>
+      <button type="button" ng-click="send()" ng-disabled="!allowSubmit">Submit</button>
     </div>
+  </div>
   </div>
 </div>
