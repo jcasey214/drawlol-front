@@ -58,12 +58,14 @@ module.exports = angular.module('drawlol').controller('HomeController', function
     $scope.$apply();
   });
   socket.on('gameOver', function(data){
-    console.log('game over!');
     $scope.players = data.players;
-    $scope.phase = 'view';
+    $scope.phase = 'review';
     $scope.allowSubmit = false;
     $scope.gameInProgress = false;
     $scope.gameOver = true;
+    $scope.allSheets = sheetView($scope.players);
+    console.log('game over!', $scope.players);
+    $scope.$apply();
   });
   $scope.chat = function(){
     socket.emit('chatMessage', {message: 'hello', room: $scope.room, user: $scope.username})
@@ -97,13 +99,13 @@ module.exports = angular.module('drawlol').controller('HomeController', function
     }
     $scope.allowSubmit = true;
     $scope.currentSheet = getNextSheet(data.round, $scope.username, data.players);
-    console.log($scope.currentSheet);
+    // console.log($scope.currentSheet);
     var sheetArray = $scope.players[$scope.currentSheet.index].sheet;
     if($scope.phase == 'draw'){
       $scope.sentenceToDraw = sheetArray[sheetArray.length - 1];
     }else if($scope.phase == 'view'){
       var imageToDescribe = sheetArray[sheetArray.length - 1];
-      console.log(imageToDescribe);
+      // console.log(imageToDescribe);
       fabric.loadSVGFromString(imageToDescribe, function(objects, options) {
         var obj = fabric.util.groupSVGElements(objects, options);
         $scope.viewCanvas.add(obj).renderAll();
@@ -114,7 +116,7 @@ module.exports = angular.module('drawlol').controller('HomeController', function
   $scope.send = function(){
     var svg = $scope.drawCanvas.toSVG({suppressPreamble: true});
     var sentence = $scope.sentence;
-    console.log('Sheet I\'m adding to is ', $scope.currentSheet.user || $scope.currentSheet);
+    // console.log('Sheet I\'m adding to is ', $scope.currentSheet.user || $scope.currentSheet);
     socket.emit('sheetSubmit',{
       sheet: $scope.currentSheet.user || $scope.currentSheet,
       phase: $scope.phase,
@@ -140,16 +142,35 @@ function getNextSheet(round, username, players){
       break;
     }
   }
-  console.log('user index is ', userIndex);
-  console.log('round number is ', round);
-  console.log('numPlayers is ', numPlayers);
+  // console.log('user index is ', userIndex);
+  // console.log('round number is ', round);
+  // console.log('numPlayers is ', numPlayers);
   var nextIndex = userIndex + (round - 1);
-  console.log('nextIndex before eval is ', nextIndex);
+  // console.log('nextIndex before eval is ', nextIndex);
   if(nextIndex > players.length - 1){
-    console.log('nextIndex eval was true');
+    // console.log('nextIndex eval was true');
     nextIndex = nextIndex - players.length;
   }
-  console.log('nextIndex after eval is ', nextIndex);
-  console.log('next player is ', players[nextIndex].username);
+  // console.log('nextIndex after eval is ', nextIndex);
+  // console.log('next player is ', players[nextIndex].username);
   return {user: players[nextIndex].username, index: nextIndex};
+}
+
+
+function sheetView(players){
+  var result = [];
+  players.forEach(function(player){
+    player.sheet.forEach(function(item){
+      if(item.match(/^\</)){
+        item.replace('\\n', '');
+        item.replace('\\"', '\'');
+        item.replace('\"', '');
+        result.push(item);
+      }else{
+        result.push(item)
+      }
+    })
+  })
+  console.log(result);
+  return result;
 }
