@@ -13,12 +13,13 @@
       <button type="button" ng-click="startGame()" ng-show="showStartButton">Start Game</button>
     </div>
     <div class="gameInteraction" ng-switch on="phase">
-    <canvas draw id="c" ng-model="drawing" ng-switch-when="draw"></canvas>
-    <canvas view id="d" ng-model="viewing" ng-switch-when="view"></canvas>
-    <div class="write">
-      <input type="text" ng-model="sentence" id="sentence" name="sentence" placeholder="Type a sentence here..." ng-show="phase==='view'"></input>
-      <button type="button" ng-click="send()" ng-disabled="!allowSubmit" ng-hide="!gameInProgress">Submit</button>
+      <h1 ng-show="phase=='draw'">{{sentenceToDraw}}</h1>
+      <canvas draw id="c" ng-model="drawing" ng-switch-when="draw"></canvas>
+      <canvas view id="d" ng-model="viewing" ng-switch-when="view"></canvas>
+      <div class="write" ng-hide="gameOver">
+        <input type="text" ng-model="sentence" id="sentence" name="sentence" placeholder="Type a sentence here..." ng-show="phase==='view'"></input>
+        <button type="button" ng-click="send()" ng-disabled="!allowSubmit" ng-hide="!gameInProgress">Submit</button>
+      </div>
     </div>
-  </div>
   </div>
 </div>

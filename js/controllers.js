@@ -27,6 +27,7 @@ module.exports = angular.module('drawlol').controller('HomeController', function
   $scope.gameInProgress = false;
   $scope.phase = 'draw';
   $scope.allowSubmit = false;
+  $scope.gameOver = false;
   var socket;
   $scope.assignUsername = function(){
     $scope.username = $scope.createUsername;
@@ -62,6 +63,7 @@ module.exports = angular.module('drawlol').controller('HomeController', function
     $scope.phase = 'view';
     $scope.allowSubmit = false;
     $scope.gameInProgress = false;
+    $scope.gameOver = true;
   });
   $scope.chat = function(){
     socket.emit('chatMessage', {message: 'hello', room: $scope.room, user: $scope.username})
@@ -95,14 +97,26 @@ module.exports = angular.module('drawlol').controller('HomeController', function
     }
     $scope.allowSubmit = true;
     $scope.currentSheet = getNextSheet(data.round, $scope.username, data.players);
-    $scope.$digest();
+    console.log($scope.currentSheet);
+    var sheetArray = $scope.players[$scope.currentSheet.index].sheet;
+    if($scope.phase == 'draw'){
+      $scope.sentenceToDraw = sheetArray[sheetArray.length - 1];
+    }else if($scope.phase == 'view'){
+      var imageToDescribe = sheetArray[sheetArray.length - 1];
+      console.log(imageToDescribe);
+      fabric.loadSVGFromString(imageToDescribe, function(objects, options) {
+        var obj = fabric.util.groupSVGElements(objects, options);
+        $scope.viewCanvas.add(obj).renderAll();
+      });
+    }
+    $scope.$apply();
   })
   $scope.send = function(){
     var svg = $scope.drawCanvas.toSVG({suppressPreamble: true});
     var sentence = $scope.sentence;
-    console.log('Sheet I\'m adding to is ', $scope.currentSheet);
+    console.log('Sheet I\'m adding to is ', $scope.currentSheet.user || $scope.currentSheet);
     socket.emit('sheetSubmit',{
-      sheet: $scope.currentSheet,
+      sheet: $scope.currentSheet.user || $scope.currentSheet,
       phase: $scope.phase,
       round: $scope.round,
       roomName: $scope.room,
@@ -137,5 +151,5 @@ function getNextSheet(round, username, players){
   }
   console.log('nextIndex after eval is ', nextIndex);
   console.log('next player is ', players[nextIndex].username);
-  return players[nextIndex].username;
+  return {user: players[nextIndex].username, index: nextIndex};
 }
