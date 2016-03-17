@@ -9,19 +9,17 @@ module.exports = angular.module('drawlol').controller('HomeController', function
   $scope.username = null;
   $scope.host = window.location.origin;
   $scope.createGame = function(){
-    console.log('clicked', $scope.createUsername);
     $scope.gameCreated = true;
     $scope.roomName = $scope.createUsername;
     UsernameFactory.setUsername($scope.createUsername);
     $scope.gamePath = `/#/play/${$scope.roomName}${Date.now()}`
   }
   $scope.joinGame = function(){
-    console.log('clicked join');
   }
 }).controller('GameController', function($scope, $routeParams, UsernameFactory, $document, $http){
   $scope.username = UsernameFactory.getUsername();
   $scope.room = $routeParams.game_id;
-  $scope.players = [];
+  $scope.players;
   $scope.creator = false;
   $scope.showStartButton = false;
   $scope.round = 0;
@@ -32,25 +30,19 @@ module.exports = angular.module('drawlol').controller('HomeController', function
   var socket;
   $scope.assignUsername = function(){
     $scope.username = $scope.createUsername;
-    $scope.currentSheet = $scope.username
+    $scope.currentSheet = $scope.username;
     socket = io.connect('http://localhost:8000');
     socket.on('handshake', function(data){
-      console.log(data);
-      console.log('this is the username', $scope.username);
       socket.emit('joinRoom', {roomName : $scope.room, user: $scope.username});
     });
     socket.on('joinSuccess', function(data){
-      console.log(data);
     });
   }
   socket = io.connect('http://localhost:8000');
   socket.on('handshake', function(data){
-    console.log(data);
-    console.log('this is the username', $scope.username);
     socket.emit('joinRoom', {roomName : $scope.room, user: $scope.username});
   });
   socket.on('joinSuccess', function(data){
-    console.log(data);
     if(data.creator){
       $scope.creator = true;
       $scope.showStartButton = true;
@@ -58,13 +50,19 @@ module.exports = angular.module('drawlol').controller('HomeController', function
     }
   });
   socket.on('userJoined', function(data){
-    $scope.players.push(data.user);
+    console.log('');
   });
   socket.on('success', function(data){
-    console.log('entry submitted successfully');
     $scope.allowSubmit = false;
     $scope.$apply();
-  })
+  });
+  socket.on('gameOver', function(data){
+    console.log('game over!');
+    $scope.players = data.players;
+    $scope.phase = 'view';
+    $scope.allowSubmit = false;
+    $scope.gameInProgress = false;
+  });
   $scope.chat = function(){
     socket.emit('chatMessage', {message: 'hello', room: $scope.room, user: $scope.username})
   };
@@ -72,7 +70,6 @@ module.exports = angular.module('drawlol').controller('HomeController', function
     socket.emit('leaveRoom', {room: $scope.room, user: $scope.username, bailed: true})
   });
   $scope.startGame = function(){
-    console.log('start game clicked');
     socket.emit('start', {start: true, room: $scope.room})
   }
   socket.on('startGame', function(data){
@@ -82,28 +79,28 @@ module.exports = angular.module('drawlol').controller('HomeController', function
     $scope.showStartButton = false;
     $scope.phase = 'view';
     $scope.allowSubmit = true;
+    $scope.players = data.players;
     $scope.$apply();
-    console.log($scope);
     var text = new fabric.Text('The game has started \ntype in a sentence and click submit\nto start your sheet', { left: 100, top: 100, fontFamily: 'Arial' });
     $scope.viewCanvas.add(text);
 
   });
   socket.on('nextRound', function(data){
-    console.log('next round', data);
     $scope.round = data.round;
+    $scope.players = data.players;
     if($scope.phase == 'view'){
       $scope.phase = 'draw';
     }else if($scope.phase == 'draw'){
       $scope.phase = 'view';
     }
-    console.log('update next round', $scope.round);
     $scope.allowSubmit = true;
+    $scope.currentSheet = getNextSheet(data.round, $scope.username, data.players);
     $scope.$digest();
   })
   $scope.send = function(){
-    console.log("send");
     var svg = $scope.drawCanvas.toSVG({suppressPreamble: true});
     var sentence = $scope.sentence;
+    console.log('Sheet I\'m adding to is ', $scope.currentSheet);
     socket.emit('sheetSubmit',{
       sheet: $scope.currentSheet,
       phase: $scope.phase,
@@ -114,8 +111,31 @@ module.exports = angular.module('drawlol').controller('HomeController', function
       image: svg
     })
     $scope.allowSubmit = false;
-    console.log(sentence);
+    $scope.sentence = '';
   }
 }).controller('CompleteController', function($scope){
   $scope.greeting = "Hello World!";
 });
+
+function getNextSheet(round, username, players){
+  var numPlayers = players.length;
+  var userIndex;
+  for(var i = 0; i < numPlayers; i++){
+    if(players[i].username == username){
+      userIndex = i;
+      break;
+    }
+  }
+  console.log('user index is ', userIndex);
+  console.log('round number is ', round);
+  console.log('numPlayers is ', numPlayers);
+  var nextIndex = userIndex + (round - 1);
+  console.log('nextIndex before eval is ', nextIndex);
+  if(nextIndex > players.length - 1){
+    console.log('nextIndex eval was true');
+    nextIndex = nextIndex - players.length;
+  }
+  console.log('nextIndex after eval is ', nextIndex);
+  console.log('next player is ', players[nextIndex].username);
+  return players[nextIndex].username;
+}

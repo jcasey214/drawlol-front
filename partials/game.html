@@ -5,7 +5,7 @@
 </div>
 
 <div ng-show="username" class="game">
-  <h1 class="gameHeader">Draw &amp; LOL</h1></h1>
+  <h1 class="gameHeader">{{username}}</h1>
   <div class="gameMain">
     <div class="aside">
       <div class="gameUsers"></div>
@@ -16,8 +16,8 @@
     <canvas draw id="c" ng-model="drawing" ng-switch-when="draw"></canvas>
     <canvas view id="d" ng-model="viewing" ng-switch-when="view"></canvas>
     <div class="write">
-      <input type="text" ng-model="sentence" id="sentence" name="sentence" placeholder="Type a sentence describing the picture above..."></input>
-      <button type="button" ng-click="send()" ng-disabled="!allowSubmit">Submit</button>
+      <input type="text" ng-model="sentence" id="sentence" name="sentence" placeholder="Type a sentence here..." ng-show="phase==='view'"></input>
+      <button type="button" ng-click="send()" ng-disabled="!allowSubmit" ng-hide="!gameInProgress">Submit</button>
     </div>
   </div>
   </div>

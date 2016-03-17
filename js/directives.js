@@ -4,7 +4,6 @@ angular.module('drawlol')
     restrict: 'A',
     scope: false,
     link : function(scope){
-      console.log('draw', scope);
       var canvas = window._canvas = new fabric.Canvas('c');
       canvas.setHeight(600);
       canvas.setWidth(800);
@@ -21,7 +20,6 @@ angular.module('drawlol')
     restrict: 'A',
     scope: false,
     link : function(scope){
-      console.log('view', scope);
       var canvas = window._canvas = new fabric.Canvas('d');
       canvas.setHeight(600);
       canvas.setWidth(800);
