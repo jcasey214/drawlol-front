@@ -128,6 +128,7 @@ module.exports = angular.module('drawlol').controller('HomeController', function
     })
     $scope.allowSubmit = false;
     $scope.sentence = '';
+    $scope.drawCanvas.clear();
   }
 }).controller('CompleteController', function($scope){
   $scope.greeting = "Hello World!";
