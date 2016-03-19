@@ -174,10 +174,12 @@ module.exports = angular.module('drawlol').controller('HomeController', function
     $scope.drawCanvas.clear();
   }
   $scope.selectEraser = function(){
-
+    $scope.drawCanvas.freeDrawingBrush.color = '#ffffff';
+    $scope.drawCanvas.freeDrawingBrush.width = 10;
   };
   $scope.selectPencil = function(){
-
+    $scope.drawCanvas.freeDrawingBrush.color = '#000000';
+    $scope.drawCanvas.freeDrawingBrush.width = 2;
   };
 }).controller('CompleteController', function($scope){
   $scope.greeting = "Hello World!";
