@@ -31,4 +31,19 @@ angular.module('drawlol')
       canvas.renderAll();
     }
   };
+}).directive('review', function($document){
+  return {
+    restrict: 'A',
+    scope: false,
+    link : function(scope){
+      var canvas = window._canvas = new fabric.Canvas('e');
+      canvas.setHeight(5000);
+      canvas.setWidth(800);
+      canvas.backgroundColor = '#ffffff';
+      canvas.isDrawingMode = false;
+      scope.$parent.reviewCanvas = canvas;
+      console.log('review canvas', scope.$parent);
+      canvas.renderAll();
+    }
+  }
 })

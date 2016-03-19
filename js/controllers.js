@@ -79,7 +79,30 @@ module.exports = angular.module('drawlol').controller('HomeController', function
     $scope.allowSubmit = false;
     $scope.gameInProgress = false;
     $scope.gameOver = true;
-    $scope.allSheets = sheetView($scope.players);
+    $scope.$digest();
+    // $scope.allSheets = sheetView($scope.players);
+    $scope.players.forEach(function(player, playerIndex){
+      var playerName = new fabric.Text(player.username, {top: playerIndex * 600 * player.sheet.length, fontFamily: 'Arial'});
+      $scope.reviewCanvas.add(playerName);
+      player.sheet.forEach(function(item, sheetIndex){
+        if(item.match(/^\</)){
+          console.log(item, sheetIndex);
+          item.replace('#ffffff', 'rgba(0,0,0,0)');
+          fabric.loadSVGFromString(item, function(objects, options) {
+            var obj = fabric.util.groupSVGElements(objects, options);
+            obj.set({
+              top: 50 + (playerIndex * 600 * player.sheet.length) + (600 * sheetIndex)
+            });
+            $scope.reviewCanvas.add(obj).renderAll();
+          });
+        }else{
+          var sentence = new fabric.Text(item, { top: 50 + (playerIndex * 600 * player.sheet.length) + (600 * sheetIndex), left: 50, fontFamily: 'Arial'});
+          $scope.reviewCanvas.add(sentence);
+        }
+      })
+      $scope.reviewCanvas.renderAll();
+    })
+
     $scope.gameDirections = 'Game Over';
     console.log('game over!', $scope.players);
     $scope.$digest();
@@ -113,9 +136,11 @@ module.exports = angular.module('drawlol').controller('HomeController', function
     }
   });
   $scope.$on('onBeforeUnload', function (e, confirmation) {
-        confirmation.message = "All data willl be lost.";
-        e.preventDefault();
-        // if(confirmation.message){
+    if($scope.gameInProgress){
+      confirmation.message = "All data willl be lost.";
+      e.preventDefault();
+    }
+              // if(confirmation.message){
         //   socket.emit('leaveRoom', {room: $scope.room, user: $scope.username, bailed: true});
         // }
   });
