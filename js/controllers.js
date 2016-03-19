@@ -173,6 +173,12 @@ module.exports = angular.module('drawlol').controller('HomeController', function
     $scope.sentence = '';
     $scope.drawCanvas.clear();
   }
+  $scope.selectEraser = function(){
+
+  };
+  $scope.selectPencil = function(){
+
+  };
 }).controller('CompleteController', function($scope){
   $scope.greeting = "Hello World!";
 });

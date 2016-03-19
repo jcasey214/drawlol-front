@@ -23,6 +23,8 @@
       <h1 ng-show="phase=='draw' && round != 0">Draw This: {{sentenceToDraw}}</h1>
       <h1 ng-show="phase=='view' && round != 1">Write a sentence describing the drawing below.</h1>
       <canvas draw id="c" ng-model="drawing" ng-switch-when="draw"></canvas>
+      <button type="button" ng-click="selectEraser()">erase</button>
+      <button type="button" ng-click="selectPencil()">pencil</button>
       <canvas view id="d" ng-model="viewing" ng-switch-when="view"></canvas>
       <div class="reviewSheets" ng-switch-default>
         <div>
