@@ -24,10 +24,11 @@ module.exports = angular.module('drawlol').controller('HomeController', function
   $scope.showStartButton = false;
   $scope.round = 0;
   $scope.currentSheet = $scope.username;
-  $scope.gameInProgress = false;
+  $scope.gameInProgress = true;
   $scope.phase = 'draw';
   $scope.allowSubmit = false;
   $scope.gameOver = false;
+  $scope.gameDirections = `Waiting for organizer to start game.`;
   var socket;
   $scope.assignUsername = function(){
     $scope.username = $scope.createUsername;
@@ -37,6 +38,7 @@ module.exports = angular.module('drawlol').controller('HomeController', function
       socket.emit('joinRoom', {roomName : $scope.room, user: $scope.username});
     });
     socket.on('joinSuccess', function(data){
+      $scope.created_by = data.created_by;
     });
   }
   socket = io.connect('http://localhost:8000');
@@ -47,15 +49,28 @@ module.exports = angular.module('drawlol').controller('HomeController', function
     if(data.creator){
       $scope.creator = true;
       $scope.showStartButton = true;
+      $scope.created_by = data.created_by;
+      $scope.$digest();
+    }else{
+      $scope.creator = false;
+      $scope.showStartButton = false;
+      $scope.created_by = data.created_by;
       $scope.$digest();
     }
   });
   socket.on('userJoined', function(data){
-    console.log('');
+    $scope.players = data.players;
+    $scope.$digest();
+  });
+  socket.on('userDisconnect', function(data){
+    console.log('user disconnected');
+    console.log(data);
+    $scope.players = data.players;
+    $scope.$digest();
   });
   socket.on('success', function(data){
     $scope.allowSubmit = false;
-    $scope.$apply();
+    $scope.$digest();
   });
   socket.on('gameOver', function(data){
     $scope.players = data.players;
@@ -64,18 +79,43 @@ module.exports = angular.module('drawlol').controller('HomeController', function
     $scope.gameInProgress = false;
     $scope.gameOver = true;
     $scope.allSheets = sheetView($scope.players);
+    $scope.gameDirections = 'Game Over';
     console.log('game over!', $scope.players);
-    $scope.$apply();
+    $scope.$digest();
   });
   $scope.chat = function(){
     socket.emit('chatMessage', {message: 'hello', room: $scope.room, user: $scope.username})
   };
-  $scope.$on('$destroy', function(){
-    socket.emit('leaveRoom', {room: $scope.room, user: $scope.username, bailed: true})
-  });
+  // $scope.$on('$destroy', function(){
+  //   console.log('destroying page');
+  //   socket.emit('leaveRoom', {room: $scope.room, user: $scope.username, bailed: true})
+  // });
   $scope.startGame = function(){
     socket.emit('start', {start: true, room: $scope.room})
-  }
+  };
+  $scope.$on('onUnload', function( event ) {
+    if($scope.gameInProgress){
+      console.log('leaving page');
+      socket.emit('leaveRoom', {room: $scope.room, user: $scope.username, bailed: true});
+      // var answer = confirm("Are you sure you want to leave this page?");
+      // if (!answer) {
+      //     event.preventDefault();
+      // }else{
+      //   socket.emit('leaveroom', {room: $scope.room, user: $scope.username, bailed: true})
+      // }
+    }
+  });
+  $scope.$on('onBeforeUnload', function (e, confirmation) {
+        confirmation.message = "All data willl be lost.";
+        e.preventDefault();
+        // if(confirmation.message){
+        //   socket.emit('leaveRoom', {room: $scope.room, user: $scope.username, bailed: true});
+        // }
+  });
+  // $scope.$on('$locationChangeStart', function(e){
+  //   socket.emit('leaveRoom', {room: $scope.room, user: $scope.username, bailed: true});
+  // })
+
   socket.on('startGame', function(data){
     $scope.drawCanvas.clear();
     $scope.gameInProgress = true;
@@ -84,6 +124,7 @@ module.exports = angular.module('drawlol').controller('HomeController', function
     $scope.phase = 'view';
     $scope.allowSubmit = true;
     $scope.players = data.players;
+    $scope.gameDirections = '';
     $scope.$apply();
     var text = new fabric.Text('The game has started \ntype in a sentence and click submit\nto start your sheet', { left: 100, top: 100, fontFamily: 'Arial' });
     $scope.viewCanvas.add(text);
@@ -111,6 +152,7 @@ module.exports = angular.module('drawlol').controller('HomeController', function
         $scope.viewCanvas.add(obj).renderAll();
       });
     }
+    $scope.gameDirections = '';
     $scope.$apply();
   })
   $scope.send = function(){
@@ -127,6 +169,7 @@ module.exports = angular.module('drawlol').controller('HomeController', function
       image: svg
     })
     $scope.allowSubmit = false;
+    $scope.gameDirections = 'Entry submitted. Waiting for other players to finish.'
     $scope.sentence = '';
     $scope.drawCanvas.clear();
   }
@@ -166,6 +209,7 @@ function sheetView(players){
         item.replace('\\n', '');
         item.replace('\\"', '\'');
         item.replace('\"', '');
+        item.replace('#ffffff', 'rgba(0,0,0,0)');
         result.push(item);
       }else{
         result.push(item)
