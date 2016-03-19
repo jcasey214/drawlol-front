@@ -29,6 +29,7 @@ module.exports = angular.module('drawlol').controller('HomeController', function
   $scope.allowSubmit = false;
   $scope.gameOver = false;
   $scope.gameDirections = `Waiting for organizer to start game.`;
+  $scope.chatMessages = [];
   var socket;
   $scope.assignUsername = function(){
     $scope.username = $scope.createUsername;
@@ -84,8 +85,14 @@ module.exports = angular.module('drawlol').controller('HomeController', function
     $scope.$digest();
   });
   $scope.chat = function(){
-    socket.emit('chatMessage', {message: 'hello', room: $scope.room, user: $scope.username})
+    socket.emit('chatMessage', {message: $scope.chatMessage, room: $scope.room, user: $scope.username})
+    $scope.chatMessage = '';
   };
+  socket.on('chatMessage', function(data){
+    console.log(data);
+    $scope.chatMessages.push(data);
+    $scope.$digest();
+  })
   // $scope.$on('$destroy', function(){
   //   console.log('destroying page');
   //   socket.emit('leaveRoom', {room: $scope.room, user: $scope.username, bailed: true})

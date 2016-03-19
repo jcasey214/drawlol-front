@@ -16,7 +16,17 @@
           </li>
         </ul>
       </div>
-      <div class="gameChat"></div>
+      <div class="gameChat">
+        <ul>
+          <li ng-repeat="message in chatMessages track by $index">
+            {{message.user}}: {{message.message}}
+          </li>
+        </ul>
+        <div class="chatInput">
+          <input type="text" ng-model="chatMessage"/>
+          <button type="button" ng-click="chat()">Send</button>
+        </div>
+      </div>
       <button type="button" ng-click="startGame()" ng-show="showStartButton">Start Game</button>
     </div>
     <div class="gameInteraction" ng-switch on="phase">
