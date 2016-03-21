@@ -1,7 +1,7 @@
 .game{
-  width: 100vw;
-  height: 90vh;
-  margin-top: 80px;
+  width: 100%;
+  height: 95vh;
+  margin-top: 75px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -15,16 +15,110 @@
     justify-content: space-around;
     .aside {
       width: 30%;
-      height: 80%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: flex-start;
       .gameUsers {
         width: 100%;
         height: 30%;
-        border: 1px solid red;
+        border: 1px solid $clean;
+        overflow: scroll;
+        background-color: white;
+        margin-bottom: 5px;
+        box-shadow: $shadow;
+        h2{
+          width: 100%;
+          text-align: center;
+          font-size: 2em;
+          font-family: $logoFont;
+          color: $vermillion;
+        }
+        li{
+          font-size: 1.2em;
+          padding: 3px 10px;
+          margin: 2px 0;
+        }
+        li:nth-child(odd){
+          color: $fresh;
+        }
+        li:nth-child(even){
+          color: $sunshine;
+        }
+        li:before {
+          font-family: 'FontAwesome';
+          content: '\f040';
+          margin:0 5px 0 5px;
+          color: inherit;
+        }
       }
       .gameChat {
         width: 100%;
-        height: 70%;
-        border: 1px solid blue;
+        height: 50%;
+        overflow: scroll;
+        background-color: white;
+        box-shadow: $shadow;
+        li{
+          padding: 5px;
+          margin-top: 2px;
+          font-size: 1.2em;
+          width: 100%;
+        }
+        li:nth-child(even){
+          background-color: rgb(224, 224, 224);
+          span{
+            color: $vermillion;
+          }
+        }
+        li:nth-child(odd){
+          background-color: rgba(255, 255, 255, 0);
+            span{
+              color: $fresh;
+            }
+        }
+      }
+      .chatInput {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        margin-top: 10px;
+        input {
+          width: 70%;
+          font-size: 2em;
+          color: $fresh;
+          box-shadow: $shadow;
+          border: 0px solid white;
+        }
+        button {
+          width: 29%;
+          height: 100%;
+          border-radius: 5px;
+          font-size: 2.5em;
+          font-family: $logoFont;
+          background-color: $vermillion;
+          border: 0 solid $vermillion;
+          color: $clean;
+          box-shadow: $shadow;
+        }
+        button:focus{
+          outline: none;
+          border: 1px solid $fresh;
+        }
+      }
+      .startButton{
+          width: 100%;
+          padding: 5px;
+          margin-top: 10px;
+          border-radius: 5px;
+          font-size: 2.5em;
+          font-family: $logoFont;
+          background-color: $fresh;
+          border: 0 solid $fresh;
+          color: $vermillion;
+          box-shadow: $shadow;
       }
     }
     .gameInteraction {
@@ -32,6 +126,13 @@
       height: 90%;
       //overflow: hidden;
       position: relative;
+      h1{
+        font-size: 1.5em;
+        color: $vermillion;
+        height: 1.5em;
+        margin-bottom: -1.5em;
+        z-index: 100000;
+      }
       .write {
         display: flex;
         flex-direction: row;
@@ -55,9 +156,23 @@
           height: 100%;
           background-color: $sunshine;
           border: none;
-          font-size: 1.5em;
+          font-size: 2.5em;
           padding: 8px;
           color: $clean;
+          box-shadow: $shadow;
+          border-radius: 5px;
+          font-family: $logoFont;
+        }
+        .utensils{
+          margin-left: 20px;
+        }
+        .utensils>button{
+          font-family: 'FontAwesome';
+          background-color: $fresh;
+          margin-left: 20px;
+          width: auto;
+          padding: 5px;
+          font-size: 3em;
         }
       }
       .canvas-container {
@@ -70,6 +185,12 @@
           align-self: flex-start;
           width: 100%;
           height: 100%;
+          box-shadow: $shadow;
+        }
+        .canvasDiv{
+          overflow: scroll;
+          width: 800px;
+          height: 600px;
         }
       }
     }
@@ -81,4 +202,29 @@
   height: 90%;
   overflow: scroll;
   background-color: white;
+}
+
+h1.gameHeader{
+  font-family: $logoFont;
+  font-size: 2em;
+  color: $fresh;
+}
+h2.gameHeader{
+  font-size: 1.2em;
+  font-weight: bold;
+  color: $vermillion;
+  margin-top: 5px;
+  display: inline;
+}
+.secondaryHeader{
+  width: 60%;
+  overflow-x: scroll;
+}
+.gameHeaderDiv{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+  width: 80%;
+  margin-bottom: 9px;
 }

@@ -2,18 +2,26 @@ $fresh: #4ABDAC;
 $vermillion: #FC4A1A;
 $sunshine: #F7B733;
 $clean: #DFDCE3;
-$logoFont: 'Loved by the King', cursive;
+$shadow:  -2px 2px 5px 0 rgba(0, 0, 0, 0.4);
+$logoShadow: -2px 2px 2px rgba(0, 0, 0, 0.4);
+// $logoFont: 'Loved by the King', cursive;
+$logoFont: 'Annie Use Your Telescope', cursive;
 html{
   font-family: 'Lato', sans-serif;
 }
 
 body{
   background-color: $clean;
-  height: 100vh;
+  min-height: 100vh;
   // margin-bottom: 50px;
 }
 
 main {
   height: 100%;
   // height: 100vh;
+}
+
+button:focus, input:focus{
+  outline: none;
+  border: 2px solid $fresh;
 }

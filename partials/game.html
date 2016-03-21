@@ -1,15 +1,28 @@
-<div ng-hide="username" style="margin: 100px">
-  <label for="username">Type in a username and click join</label>
-  <input type="text" ng-model="createUsername" />
-  <button type="button" ng-click="assignUsername()">Join the Game</button>
+<div ng-hide="username" class="createJoin">
+  <h1>Create a Username to Join the Game!</h1>
+  <form name="usernameJoin" noValidate ng-submit="assignUsername()">
+    <label for="username">Username</label>
+    <input type="text" name="createUsername" ng-model="createUsername" required/>
+    <p class="usernameError" ng-show="usernameJoin.createUsername.$invalid">
+      A username is required to join the game.
+    </p>
+    <button type="submit" class="createButton" ng-disabled="usernameJoin.createUsername.$invalid">Join the Game</button>
+  </form>
 </div>
 
 <div ng-show="username" class="game">
-  <h1 class="gameHeader">{{username}} Round: {{round}}/{{players.length + 1}}</h1>
-  <h2 class="gameHeader">{{gameDirections}}</h2>
+  <div class="gameHeaderDiv">
+    <h1 class="gameHeader">{{username}} (Round: {{round}}/{{players.length + 1}})</h1>
+    <div class="secondaryHeader">
+      <h2 class="gameHeader">{{gameDirections}}</h2>
+      <h2 ng-show="phase=='draw' && round != 0" class="gameHeader">Draw This: {{sentenceToDraw}}</h2>
+      <h2 ng-show="phase=='view' && round != 1" class="gameHeader">Write a sentence describing the drawing below.</h2>
+    </div>
+  </div>
   <div class="gameMain">
     <div class="aside">
       <div class="gameUsers">
+        <h2>Players in the Room</h2>
         <ul>
           <li ng-repeat="player in players">
             {{player.username}}
@@ -19,23 +32,25 @@
       <div class="gameChat">
         <ul>
           <li ng-repeat="message in chatMessages track by $index">
-            {{message.user}}: {{message.message}}
+            <span>{{message.user}}:</span> {{message.message}}
           </li>
         </ul>
-        <div class="chatInput">
-          <input type="text" ng-model="chatMessage"/>
-          <button type="button" ng-click="chat()">Send</button>
-        </div>
       </div>
-      <button type="button" ng-click="startGame()" ng-show="showStartButton">Start Game</button>
+      <div class="chatInput">
+        <input type="text" ng-model="chatMessage"/>
+        <button type="button" ng-click="chat()">Chat</button>
+      </div>
+      <button type="button" ng-click="startGame()" ng-show="showStartButton" class="startButton">Start Game</button>
     </div>
     <div class="gameInteraction" ng-switch on="phase">
-      <h1 ng-show="phase=='draw' && round != 0">Draw This: {{sentenceToDraw}}</h1>
-      <h1 ng-show="phase=='view' && round != 1">Write a sentence describing the drawing below.</h1>
-      <canvas draw id="c" ng-model="drawing" ng-switch-when="draw"></canvas>
-      <canvas view id="d" ng-model="viewing" ng-switch-when="view"></canvas>
-      <canvas review id="e" ng-model="reviewing" ng-switch-default></canvas>
-      <!-- <div class="reviewSheets" ng-switch-default>
+      <!-- <h1 ng-show="phase=='draw' && round != 0">Draw This: {{sentenceToDraw}}</h1>
+      <h1 ng-show="phase=='view' && round != 1">Write a sentence describing the drawing below.</h1> -->
+      <div class="canvasDiv">
+        <canvas draw id="c" ng-model="drawing" ng-switch-when="draw"></canvas>
+        <canvas view id="d" ng-model="viewing" ng-switch-when="view"></canvas>
+        <canvas review id="e" ng-model="reviewing" ng-switch-default></canvas>
+      </div>
+            <!-- <div class="reviewSheets" ng-switch-default>
         <div>
           <h2>this is a test</h2>
           <div class="sheet" ng-repeat="sheet in allSheets track by $index">
@@ -46,8 +61,10 @@
       <div class="write" ng-hide="gameOver">
         <input type="text" ng-model="sentence" id="sentence" name="sentence" placeholder="Type a sentence here..." ng-show="phase==='view'"></input>
         <button type="button" ng-click="send()" ng-disabled="!allowSubmit" ng-hide="!gameInProgress">Submit</button>
-        <button type="button" ng-click="selectEraser()">erase</button>
-        <button type="button" ng-click="selectPencil()">pencil</button>
+        <div class="utensils" ng-show="phase=='draw'">
+          <button type="button" ng-click="selectEraser()"><i class="fa fa-eraser"></i></button>
+          <button type="button" ng-click="selectPencil()"><i class="fa fa-pencil"></i></button>
+        </div>
       </div>
     </div>
   </div>

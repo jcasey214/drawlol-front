@@ -50,10 +50,14 @@ html {
 
 body {
   background-color: #DFDCE3;
-  height: 100vh; }
+  min-height: 100vh; }
 
 main {
   height: 100%; }
+
+button:focus, input:focus {
+  outline: none;
+  border: 2px solid #4ABDAC; }
 
 header {
   width: 100vw;
@@ -62,18 +66,20 @@ header {
   position: fixed;
   top: 0;
   margin: 0;
-  z-index: 1000; }
+  z-index: 1000;
+  display: flex;
+  align-items: center; }
   header a {
     text-decoration: none; }
   header a:hover, header a:link, header a:visited {
     text-decoration: none; }
   header h1 {
-    font-size: 2.7em;
+    font-size: 3em;
     margin: 15px 20px;
-    font-family: "Loved by the King", cursive;
+    font-family: "Annie Use Your Telescope", cursive;
     font-weight: bolder;
     color: #FC4A1A;
-    text-shadow: 1px 1px 2px black;
+    text-shadow: -2px 2px 2px rgba(0, 0, 0, 0.4);
     text-decoration: none; }
     header h1 span {
       color: #F7B733; }
@@ -81,72 +87,86 @@ header {
     text-decoration: none; }
 
 footer {
-  position: sticky;
+  position: static;
   bottom: 0;
   left: 0;
   width: 100vw;
   height: 50px;
-  background-color: #4ABDAC; }
+  background-color: #4ABDAC;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center; }
+  footer h2 {
+    color: #FC4A1A;
+    font-size: 1.5em; }
+  footer i {
+    font-size: 3em;
+    color: #FC4A1A;
+    margin: 0 20px; }
 
 .hero {
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  margin-top: 75px; }
+  justify-content: center; }
   .hero .jumbo {
-    width: 70%;
-    height: 50vh;
+    width: 100%;
+    height: 100vh;
     background-image: url("https://images.contentful.com/mnc2gcng0j8q/1YLxrTDORCQsAAGOYKI4qO/8c438acce6529ec0672e1285dc8bfbf1/justworks-resources-page.jpg");
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-size: cover;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: stretch; }
+    position: relative;
+    box-shadow: -2px 2px 5px 0 rgba(0, 0, 0, 0.4); }
     .hero .jumbo div {
-      margin: 30px;
+      position: absolute;
+      top: 120px;
+      left: 50px;
       width: 40%; }
       .hero .jumbo div h1 {
-        font-size: 3.5em;
-        font-family: "Loved by the King", cursive;
+        font-size: 5em;
+        font-family: "Annie Use Your Telescope", cursive;
         font-weight: bolder;
         color: #FC4A1A;
-        text-shadow: 1px 1px 2px black; }
+        text-shadow: -2px 2px 2px rgba(0, 0, 0, 0.4); }
         .hero .jumbo div h1 span {
           color: #F7B733; }
       .hero .jumbo div h2 {
         font-size: 2em;
-        color: #4ABDAC; }
+        color: #4ABDAC;
+        font-weight: 300; }
     .hero .jumbo button.createGame {
       background-color: #F7B733;
       color: #DFDCE3;
-      font-size: 1.5em;
+      font-family: "Annie Use Your Telescope", cursive;
+      font-size: 4em;
       font-weight: bolder;
       padding: 10px;
-      align-self: baseline;
-      margin: 50% 20% 0 0;
       border: 1px solid #F7B733;
       border-radius: 5px;
-      width: 100%; }
+      position: absolute;
+      bottom: 75px;
+      right: 75px;
+      box-shadow: -2px 2px 5px 0 rgba(0, 0, 0, 0.4); }
   .hero .homeCopy {
-    width: 70%;
+    width: 90%;
     display: flex;
     flex-direction: row;
     justify-content: space-around; }
     .hero .homeCopy .copyColumn {
       width: 30%;
       margin: 40px 10px 100px 10px;
-      background-color: rgba(247, 183, 51, 0.3);
       background-opacity: 0.3;
       padding: 10px;
       height: 100%; }
       .hero .homeCopy .copyColumn h3 {
-        font-size: 1.5em;
+        font-size: 2.5em;
+        font-family: "Annie Use Your Telescope", cursive;
         font-weight: bolder;
+        color: #FC4A1A;
         width: 100%;
         text-align: center; }
       .hero .homeCopy .copyColumn p {
@@ -199,9 +219,9 @@ footer {
     border: 0.5px solid #4ABDAC; }
 
 .game {
-  width: 100vw;
-  height: 90vh;
-  margin-top: 80px;
+  width: 100%;
+  height: 95vh;
+  margin-top: 75px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -215,19 +235,104 @@ footer {
     justify-content: space-around; }
     .game .gameMain .aside {
       width: 30%;
-      height: 80%; }
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: flex-start; }
       .game .gameMain .aside .gameUsers {
         width: 100%;
         height: 30%;
-        border: 1px solid red; }
+        border: 1px solid #DFDCE3;
+        overflow: scroll;
+        background-color: white;
+        margin-bottom: 5px;
+        box-shadow: -2px 2px 5px 0 rgba(0, 0, 0, 0.4); }
+        .game .gameMain .aside .gameUsers h2 {
+          width: 100%;
+          text-align: center;
+          font-size: 2em;
+          font-family: "Annie Use Your Telescope", cursive;
+          color: #FC4A1A; }
+        .game .gameMain .aside .gameUsers li {
+          font-size: 1.2em;
+          padding: 3px 10px;
+          margin: 2px 0; }
+        .game .gameMain .aside .gameUsers li:nth-child(odd) {
+          color: #4ABDAC; }
+        .game .gameMain .aside .gameUsers li:nth-child(even) {
+          color: #F7B733; }
+        .game .gameMain .aside .gameUsers li:before {
+          font-family: 'FontAwesome';
+          content: '\f040';
+          margin: 0 5px 0 5px;
+          color: inherit; }
       .game .gameMain .aside .gameChat {
         width: 100%;
-        height: 70%;
-        border: 1px solid blue; }
+        height: 50%;
+        overflow: scroll;
+        background-color: white;
+        box-shadow: -2px 2px 5px 0 rgba(0, 0, 0, 0.4); }
+        .game .gameMain .aside .gameChat li {
+          padding: 5px;
+          margin-top: 2px;
+          font-size: 1.2em;
+          width: 100%; }
+        .game .gameMain .aside .gameChat li:nth-child(even) {
+          background-color: #e0e0e0; }
+          .game .gameMain .aside .gameChat li:nth-child(even) span {
+            color: #FC4A1A; }
+        .game .gameMain .aside .gameChat li:nth-child(odd) {
+          background-color: rgba(255, 255, 255, 0); }
+          .game .gameMain .aside .gameChat li:nth-child(odd) span {
+            color: #4ABDAC; }
+      .game .gameMain .aside .chatInput {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        margin-top: 10px; }
+        .game .gameMain .aside .chatInput input {
+          width: 70%;
+          font-size: 2em;
+          color: #4ABDAC;
+          box-shadow: -2px 2px 5px 0 rgba(0, 0, 0, 0.4);
+          border: 0px solid white; }
+        .game .gameMain .aside .chatInput button {
+          width: 29%;
+          height: 100%;
+          border-radius: 5px;
+          font-size: 2.5em;
+          font-family: "Annie Use Your Telescope", cursive;
+          background-color: #FC4A1A;
+          border: 0 solid #FC4A1A;
+          color: #DFDCE3;
+          box-shadow: -2px 2px 5px 0 rgba(0, 0, 0, 0.4); }
+        .game .gameMain .aside .chatInput button:focus {
+          outline: none;
+          border: 1px solid #4ABDAC; }
+      .game .gameMain .aside .startButton {
+        width: 100%;
+        padding: 5px;
+        margin-top: 10px;
+        border-radius: 5px;
+        font-size: 2.5em;
+        font-family: "Annie Use Your Telescope", cursive;
+        background-color: #4ABDAC;
+        border: 0 solid #4ABDAC;
+        color: #FC4A1A;
+        box-shadow: -2px 2px 5px 0 rgba(0, 0, 0, 0.4); }
     .game .gameMain .gameInteraction {
       width: 60%;
       height: 90%;
       position: relative; }
+      .game .gameMain .gameInteraction h1 {
+        font-size: 1.5em;
+        color: #FC4A1A;
+        height: 1.5em;
+        margin-bottom: -1.5em;
+        z-index: 100000; }
       .game .gameMain .gameInteraction .write {
         display: flex;
         flex-direction: row;
@@ -248,21 +353,62 @@ footer {
           height: 100%;
           background-color: #F7B733;
           border: none;
-          font-size: 1.5em;
+          font-size: 2.5em;
           padding: 8px;
-          color: #DFDCE3; }
+          color: #DFDCE3;
+          box-shadow: -2px 2px 5px 0 rgba(0, 0, 0, 0.4);
+          border-radius: 5px;
+          font-family: "Annie Use Your Telescope", cursive; }
+        .game .gameMain .gameInteraction .write .utensils {
+          margin-left: 20px; }
+        .game .gameMain .gameInteraction .write .utensils > button {
+          font-family: 'FontAwesome';
+          background-color: #4ABDAC;
+          margin-left: 20px;
+          width: auto;
+          padding: 5px;
+          font-size: 3em; }
       .game .gameMain .gameInteraction .canvas-container {
         height: 0 !important; }
         .game .gameMain .gameInteraction .canvas-container canvas#c, .game .gameMain .gameInteraction .canvas-container canvas#d {
           overflow: hidden;
           align-self: flex-start;
           width: 100%;
-          height: 100%; }
+          height: 100%;
+          box-shadow: -2px 2px 5px 0 rgba(0, 0, 0, 0.4); }
+        .game .gameMain .gameInteraction .canvas-container .canvasDiv {
+          overflow: scroll;
+          width: 800px;
+          height: 600px; }
 
 .reviewSheets {
   width: 100%;
   height: 90%;
   overflow: scroll;
   background-color: white; }
+
+h1.gameHeader {
+  font-family: "Annie Use Your Telescope", cursive;
+  font-size: 2em;
+  color: #4ABDAC; }
+
+h2.gameHeader {
+  font-size: 1.2em;
+  font-weight: bold;
+  color: #FC4A1A;
+  margin-top: 5px;
+  display: inline; }
+
+.secondaryHeader {
+  width: 60%;
+  overflow-x: scroll; }
+
+.gameHeaderDiv {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+  width: 80%;
+  margin-bottom: 9px; }
 
 /*# sourceMappingURL=main.css.map */
