@@ -27,6 +27,7 @@
   },
   "dependencies": {
     "angular": "^1.5.0",
+    "angular-messages": "^1.5.2",
     "angular-route": "^1.5.0",
     "fabric-browserify": "^1.4.13",
     "phoenix-elixir": "^1.2.0-dev",

@@ -1,4 +1,6 @@
 var io = require('socket.io-client/socket.io.js');
+var serverURL = 'http://localhost:8000';
+// var serverURL = 'https://drawlol-node.herokuapp.com/';
 
 module.exports = angular.module('drawlol').controller('HomeController', function($scope) {
   $scope.greeting = "Hello World!";
@@ -34,7 +36,7 @@ module.exports = angular.module('drawlol').controller('HomeController', function
   $scope.assignUsername = function(){
     $scope.username = $scope.createUsername;
     $scope.currentSheet = $scope.username;
-    socket = io.connect('http://localhost:8000');
+    socket = io.connect(serverURL);
     socket.on('handshake', function(data){
       socket.emit('joinRoom', {roomName : $scope.room, user: $scope.username});
     });
@@ -42,7 +44,7 @@ module.exports = angular.module('drawlol').controller('HomeController', function
       $scope.created_by = data.created_by;
     });
   }
-  socket = io.connect('http://localhost:8000');
+  socket = io.connect(serverURL);
   socket.on('handshake', function(data){
     socket.emit('joinRoom', {roomName : $scope.room, user: $scope.username});
   });
@@ -82,7 +84,7 @@ module.exports = angular.module('drawlol').controller('HomeController', function
     $scope.$digest();
     // $scope.allSheets = sheetView($scope.players);
     $scope.players.forEach(function(player, playerIndex){
-      var playerName = new fabric.Text(player.username, {top: playerIndex * 600 * player.sheet.length, fontFamily: 'Arial'});
+      var playerName = new fabric.Text(`${player.username}'s Sheet`, {top: playerIndex * 400 * player.sheet.length, fontFamily: 'Arial'});
       $scope.reviewCanvas.add(playerName);
       player.sheet.forEach(function(item, sheetIndex){
         if(item.match(/^\</)){
@@ -91,12 +93,12 @@ module.exports = angular.module('drawlol').controller('HomeController', function
           fabric.loadSVGFromString(item, function(objects, options) {
             var obj = fabric.util.groupSVGElements(objects, options);
             obj.set({
-              top: 50 + (playerIndex * 600 * player.sheet.length) + (600 * sheetIndex)
+              top: (50 + (playerIndex * 400 * player.sheet.length) + (600 * (sheetIndex - 1)))
             });
             $scope.reviewCanvas.add(obj).renderAll();
           });
         }else{
-          var sentence = new fabric.Text(item, { top: 50 + (playerIndex * 600 * player.sheet.length) + (600 * sheetIndex), left: 50, fontFamily: 'Arial'});
+          var sentence = new fabric.Text(item, { top: sheetIndex == 0? (50 + (playerIndex * 400 * player.sheet.length) + (600 * sheetIndex)):(50 + (playerIndex * 400 * player.sheet.length) + (600 * (sheetIndex - 1))) , left: 50, fontFamily: 'Arial'});
           $scope.reviewCanvas.add(sentence);
         }
       })
@@ -136,7 +138,7 @@ module.exports = angular.module('drawlol').controller('HomeController', function
     }
   });
   $scope.$on('onBeforeUnload', function (e, confirmation) {
-    if($scope.gameInProgress){
+    if($scope.gameInProgress && $scope.username){
       confirmation.message = "All data willl be lost.";
       e.preventDefault();
     }
@@ -241,21 +243,21 @@ function getNextSheet(round, username, players){
 }
 
 
-function sheetView(players){
-  var result = [];
-  players.forEach(function(player){
-    player.sheet.forEach(function(item){
-      if(item.match(/^\</)){
-        item.replace('\\n', '');
-        item.replace('\\"', '\'');
-        item.replace('\"', '');
-        item.replace('#ffffff', 'rgba(0,0,0,0)');
-        result.push(item);
-      }else{
-        result.push(item)
-      }
-    })
-  })
-  console.log(result);
-  return result;
-}
+// function sheetView(players){
+//   var result = [];
+//   players.forEach(function(player){
+//     player.sheet.forEach(function(item){
+//       if(item.match(/^\</)){
+//         item.replace('\\n', '');
+//         item.replace('\\"', '\'');
+//         item.replace('\"', '');
+//         item.replace('#ffffff', 'rgba(0,0,0,0)');
+//         result.push(item);
+//       }else{
+//         result.push(item)
+//       }
+//     })
+//   })
+//   console.log(result);
+//   return result;
+// }

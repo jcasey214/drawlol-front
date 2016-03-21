@@ -9,9 +9,11 @@ html{
 
 body{
   background-color: $clean;
-  margin-bottom: 50px;
+  height: 100vh;
+  // margin-bottom: 50px;
 }
 
 main {
   height: 100%;
+  // height: 100vh;
 }
