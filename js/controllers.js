@@ -1,6 +1,6 @@
 var io = require('socket.io-client/socket.io.js');
-var serverURL = 'http://localhost:8000';
-// var serverURL = 'https://drawlol-node.herokuapp.com/';
+// var serverURL = 'http://localhost:8000';
+var serverURL = 'https://drawlol-node.herokuapp.com/';
 
 module.exports = angular.module('drawlol').controller('HomeController', function($scope) {
   $scope.greeting = "Hello World!";
