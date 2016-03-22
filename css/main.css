@@ -211,9 +211,10 @@ footer {
     background-color: #F7B733;
     border: 1px solid #F7B733;
     border-radius: 5px;
-    font-size: 1.5em;
+    font-size: 2.5em;
     padding: 10px;
-    color: #DFDCE3; }
+    color: #DFDCE3;
+    font-family: "Annie Use Your Telescope", cursive; }
   .createJoin .createButton:focus {
     box-shadow: 0 0 0 0 transparent;
     border: 0.5px solid #4ABDAC; }
@@ -323,6 +324,11 @@ footer {
         border: 0 solid #4ABDAC;
         color: #FC4A1A;
         box-shadow: -2px 2px 5px 0 rgba(0, 0, 0, 0.4); }
+        .game .gameMain .aside .startButton span {
+          display: block;
+          margin-top: 3px;
+          color: #F7B733;
+          font-size: 25px; }
     .game .gameMain .gameInteraction {
       width: 60%;
       height: 90%;
@@ -388,6 +394,11 @@ canvas#c, canvas#d, canvas#e {
   height: 90%;
   overflow: scroll;
   background-color: white; }
+
+.gameInProgress {
+  color: #FC4A1A;
+  font-size: 1.5em;
+  font-family: "Annie Use Your Telescope", cursive; }
 
 h1.gameHeader {
   font-family: "Annie Use Your Telescope", cursive;

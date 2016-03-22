@@ -6,7 +6,10 @@
     <p class="usernameError" ng-show="usernameJoin.createUsername.$invalid">
       A username is required to join the game.
     </p>
-    <button type="submit" class="createButton" ng-disabled="usernameJoin.createUsername.$invalid">Join the Game</button>
+    <button type="submit" class="createButton" ng-disabled="usernameJoin.createUsername.$invalid || joinDisabled">Join the Game</button>
+    <p ng-show="joinDisabled" class="gameInProgress">
+      The game that you're trying to join has already begun, but that's okay you can make your own game, a better game with cool people...
+    </p>
   </form>
 </div>
 
@@ -40,7 +43,7 @@
         <input type="text" ng-model="chatMessage"/>
         <button type="button" ng-click="chat()">Chat</button>
       </div>
-      <button type="button" ng-click="startGame()" ng-show="showStartButton" class="startButton">Start Game</button>
+      <button type="button" ng-click="startGame()" ng-show="showStartButton" class="startButton">Start Game<span>Wait for all players to join</span></button>
     </div>
     <div class="gameInteraction" ng-switch on="phase">
       <!-- <h1 ng-show="phase=='draw' && round != 0">Draw This: {{sentenceToDraw}}</h1>

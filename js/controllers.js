@@ -1,6 +1,6 @@
 var io = require('socket.io-client/socket.io.js');
-// var serverURL = 'http://localhost:8000';
-var serverURL = 'https://drawlol-node.herokuapp.com/';
+var serverURL = 'http://localhost:8000';
+// var serverURL = 'https://drawlol-node.herokuapp.com/';
 
 module.exports = angular.module('drawlol').controller('HomeController', function($scope) {
   $scope.greeting = "Hello World!";
@@ -30,6 +30,7 @@ module.exports = angular.module('drawlol').controller('HomeController', function
   $scope.phase = 'draw';
   $scope.allowSubmit = false;
   $scope.gameOver = false;
+  $scope.joinDisabled = false;
   $scope.gameDirections = `Waiting for organizer to start game.`;
   $scope.chatMessages = [];
   var socket;
@@ -65,6 +66,9 @@ module.exports = angular.module('drawlol').controller('HomeController', function
     $scope.players = data.players;
     $scope.$digest();
   });
+  socket.on('sorry', function(data){
+    $scope.joinDisabled = true;
+  })
   socket.on('userDisconnect', function(data){
     console.log('user disconnected');
     console.log(data);
@@ -128,7 +132,7 @@ module.exports = angular.module('drawlol').controller('HomeController', function
   $scope.$on('onUnload', function( event ) {
     if($scope.gameInProgress){
       console.log('leaving page');
-      socket.emit('leaveRoom', {room: $scope.room, user: $scope.username, bailed: true});
+      socket.emit('leaveRoom', {roomName: $scope.room, user: $scope.username, bailed: true});
       // var answer = confirm("Are you sure you want to leave this page?");
       // if (!answer) {
       //     event.preventDefault();

@@ -119,6 +119,12 @@
           border: 0 solid $fresh;
           color: $vermillion;
           box-shadow: $shadow;
+          span{
+            display: block;
+            margin-top: 3px;
+            color: $sunshine;
+            font-size: 25px;
+          }
       }
     }
     .gameInteraction {
@@ -202,6 +208,12 @@ canvas#c, canvas#d, canvas#e{
   height: 90%;
   overflow: scroll;
   background-color: white;
+}
+
+.gameInProgress{
+  color: $vermillion;
+  font-size: 1.5em;
+  font-family: $logoFont;
 }
 
 h1.gameHeader{
