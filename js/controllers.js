@@ -41,6 +41,12 @@ module.exports = angular.module('drawlol').controller('HomeController', function
     socket.on('handshake', function(data){
       socket.emit('joinRoom', {roomName : $scope.room, user: $scope.username});
     });
+    socket.on('duplicateUsername', function(data){
+      console.log('hello');
+      $scope.username = data.newUsername;
+      $scope.currentSheet = data.newUsername;
+      $scope.$digest();
+  });
     socket.on('joinSuccess', function(data){
       $scope.created_by = data.created_by;
     });
@@ -87,22 +93,24 @@ module.exports = angular.module('drawlol').controller('HomeController', function
     $scope.gameOver = true;
     $scope.$digest();
     // $scope.allSheets = sheetView($scope.players);
-    $scope.players.forEach(function(player, playerIndex){
-      var playerName = new fabric.Text(`${player.username}'s Sheet`, {top: playerIndex * 500 * (player.sheet.length - 1) + 10, left: 5, fontFamily: 'Arial', stroke: "#4ABDAC", fill: "#4ABDAC"});
+    $scope.players.forEach(function(player, playerIndex, playerArray){
+      var sheetTop = getSheetTop(playerIndex, player.sheet, 20, 500, 50)
+      var playerName = new fabric.Text(`${player.username}'s Sheet`, {top: sheetTop, left: 5, fontFamily: 'Arial', stroke: "#4ABDAC", fill: "#4ABDAC", fontSize: 50});
       $scope.reviewCanvas.add(playerName);
-      player.sheet.forEach(function(item, sheetIndex){
+      player.sheet.forEach(function(item, sheetIndex, sheetArray){
+        var top = getItemTop(playerIndex, sheetIndex, sheetArray, 20, 500, 50)
         if(item.match(/^\</)){
           console.log(item, sheetIndex);
           item.replace('#ffffff', 'rgba(0,0,0,0)');
           fabric.loadSVGFromString(item, function(objects, options) {
             var obj = fabric.util.groupSVGElements(objects, options);
             obj.set({
-              top: (30 + (playerIndex * 500 * (player.sheet.length - 1) + 10) + (500 * (sheetIndex - 1)))
+              top: top
             });
             $scope.reviewCanvas.add(obj).renderAll();
           });
         }else{
-          var sentence = new fabric.Text(item, { top: sheetIndex == 0? (50 + (playerIndex * 500 * (player.sheet.length - 1) + 10) + (500 * sheetIndex)):(50 + (playerIndex * 500 * (player.sheet.length - 1)) + (500 * (sheetIndex - 1))) , left: 50, fontSize: 20, fontFamily: 'Arial', stroke: "#FC4A1A", fill: "#FC4A1A"});
+          var sentence = new fabric.Text(item, { top: top , left: 50, fontSize: 20, fontFamily: 'Arial', stroke: "#FC4A1A", fill: "#FC4A1A"});
           $scope.reviewCanvas.add(sentence);
         }
       })
@@ -210,7 +218,11 @@ module.exports = angular.module('drawlol').controller('HomeController', function
     $scope.gameDirections = 'Entry submitted. Waiting for other players to finish. Tell them to hurry up!'
     $scope.sentence = '';
     $scope.drawCanvas.clear();
-  }
+  };
+  // socket.emit('duplicateUsername', {
+  //         newUsername: data.user
+  //       })
+
   $scope.selectEraser = function(){
     $scope.drawCanvas.freeDrawingBrush.color = '#ffffff';
     $scope.drawCanvas.freeDrawingBrush.width = 10;
@@ -265,3 +277,24 @@ function getNextSheet(round, username, players){
 //   console.log(result);
 //   return result;
 // }
+
+function sheetHeight(itemCount, sentenceHeight, imageHeight) {
+  return sentenceHeight * Math.ceil(itemCount / 2) +
+    imageHeight * Math.floor(itemCount / 2);
+}
+
+function getSheetTop(playerNumber, items, sentenceHeight, imageHeight, nameHeight) {
+  return playerNumber * (nameHeight + sheetHeight(items.length, sentenceHeight, imageHeight)) + 20;
+}
+
+function getItemTop(playerNumber, itemNumber, items, sentenceHeight, imageHeight, nameHeight) {
+  return getSheetTop(playerNumber, items, sentenceHeight, imageHeight, nameHeight) +
+    nameHeight +
+    getItemPosition(itemNumber, sentenceHeight, imageHeight);
+}
+
+function getItemPosition(itemNumber, sentenceHeight, imageHeight) {
+  var sentences = Math.ceil(itemNumber / 2);
+  var images = Math.floor(itemNumber / 2);
+  return sentences * sentenceHeight + images * imageHeight;
+}
