@@ -7,7 +7,7 @@
       A username is required to join the game.
     </p>
     <button type="submit" class="createButton" ng-disabled="usernameJoin.createUsername.$invalid || joinDisabled">Join the Game</button>
-    <p ng-show="joinDisabled" class="gameInProgress">
+    <p ng-show="joinDisabled || gameOver" class="gameInProgress">
       The game that you're trying to join has already begun, but that's okay you can make your own game, a better game with cool people...
     </p>
   </form>
@@ -18,8 +18,8 @@
     <h1 class="gameHeader">{{username}} (Round: {{round}}/{{players.length + 1}})</h1>
     <div class="secondaryHeader">
       <h2 class="gameHeader">{{gameDirections}}</h2>
-      <h2 ng-show="phase=='draw' && round != 0" class="gameHeader">Draw This: {{sentenceToDraw}}</h2>
-      <h2 ng-show="phase=='view' && round != 1" class="gameHeader">Write a sentence describing the drawing below.</h2>
+      <h2 ng-show="phase=='draw' && round != 0 && allowSubmit" class="gameHeader">Draw This: {{sentenceToDraw}}</h2>
+      <h2 ng-show="phase=='view' && round != 1 && allowSubmit" class="gameHeader">Write a sentence describing the drawing below.</h2>
     </div>
   </div>
   <div class="gameMain">

@@ -207,7 +207,7 @@ module.exports = angular.module('drawlol').controller('HomeController', function
       image: svg
     })
     $scope.allowSubmit = false;
-    $scope.gameDirections = 'Entry submitted. Waiting for other players to finish.'
+    $scope.gameDirections = 'Entry submitted. Waiting for other players to finish. Tell them to hurry up!'
     $scope.sentence = '';
     $scope.drawCanvas.clear();
   }
