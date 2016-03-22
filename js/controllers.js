@@ -94,11 +94,11 @@ module.exports = angular.module('drawlol').controller('HomeController', function
     $scope.$digest();
     // $scope.allSheets = sheetView($scope.players);
     $scope.players.forEach(function(player, playerIndex, playerArray){
-      var sheetTop = getSheetTop(playerIndex, player.sheet, 20, 500, 50)
+      var sheetTop = getSheetTop(playerIndex, player.sheet, 20, 550, 50)
       var playerName = new fabric.Text(`${player.username}'s Sheet`, {top: sheetTop, left: 5, fontFamily: 'Arial', stroke: "#4ABDAC", fill: "#4ABDAC", fontSize: 50});
       $scope.reviewCanvas.add(playerName);
       player.sheet.forEach(function(item, sheetIndex, sheetArray){
-        var top = getItemTop(playerIndex, sheetIndex, sheetArray, 20, 500, 50)
+        var top = getItemTop(playerIndex, sheetIndex, sheetArray, 20, 550, 50)
         if(item.match(/^\</)){
           console.log(item, sheetIndex);
           item.replace('#ffffff', 'rgba(0,0,0,0)');
@@ -110,14 +110,17 @@ module.exports = angular.module('drawlol').controller('HomeController', function
             $scope.reviewCanvas.add(obj).renderAll();
           });
         }else{
+          item = addLineBreaks(item);
           var sentence = new fabric.Text(item, { top: top , left: 50, fontSize: 20, fontFamily: 'Arial', stroke: "#FC4A1A", fill: "#FC4A1A"});
           $scope.reviewCanvas.add(sentence);
         }
       })
+      var end = new fabric.Text('That\'s all Folks!', {top: (Math.pow($scope.players.length, 2) * 600), left: 50, fontSize: 50, fontFamily: 'Arial'});
+      $scope.reviewCanvas.add(end);
       $scope.reviewCanvas.renderAll();
     })
 
-    $scope.gameDirections = 'Game Over';
+    $scope.gameDirections = 'Game Over! Scroll through everyone\'s sheets below.';
     console.log('game over!', $scope.players);
     $scope.$digest();
   });
@@ -277,6 +280,12 @@ function getNextSheet(round, username, players){
 //   console.log(result);
 //   return result;
 // }
+function addLineBreaks(string){
+  if (string.length < 70) return string;
+  var position = 70;
+  while (position >= 0 && string[position] != ' ') position--;
+  return string.slice(0, position) + '\n' + addLineBreaks(string.slice(position));
+}
 
 function sheetHeight(itemCount, sentenceHeight, imageHeight) {
   return sentenceHeight * Math.ceil(itemCount / 2) +
@@ -284,7 +293,7 @@ function sheetHeight(itemCount, sentenceHeight, imageHeight) {
 }
 
 function getSheetTop(playerNumber, items, sentenceHeight, imageHeight, nameHeight) {
-  return playerNumber * (nameHeight + sheetHeight(items.length, sentenceHeight, imageHeight)) + 20;
+  return playerNumber * (nameHeight + sheetHeight(items.length, sentenceHeight, imageHeight)) + 30;
 }
 
 function getItemTop(playerNumber, itemNumber, items, sentenceHeight, imageHeight, nameHeight) {

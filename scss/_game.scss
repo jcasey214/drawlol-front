@@ -142,16 +142,16 @@
       .write {
         display: flex;
         flex-direction: row;
-        justify-content: center;
+        justify-content: space-between;
         align-items: center;
-        width: 100%;
+        width: 800px;
         position: absolute;
         top: 620px;
         #sentence {
           // display: inline-block;
-          font-size: 1.5em;
-          width: 79%;
-          margin: 10px 0 0 0;
+          font-size: 2em;
+          width: 83%;
+          // margin: 10px 0 0 0;
           background-color: white;
           border: none;
           padding: 5px;
@@ -200,6 +200,7 @@ canvas#c, canvas#d, canvas#e{
   overflow: scroll;
   width: 800px;
   height: 600px;
+  box-shadow: $shadow;
 }
 
 .reviewSheets {
@@ -221,15 +222,20 @@ h1.gameHeader{
   color: $fresh;
 }
 h2.gameHeader{
-  font-size: 1.2em;
+  font-size: 1.3em;
   font-weight: bold;
   color: $vermillion;
   margin-top: 5px;
   display: inline;
+  overflow: visible;
 }
 .secondaryHeader{
   width: 60%;
-  overflow-x: scroll;
+  overflow-x: visible;;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
 }
 .gameHeaderDiv{
   display: flex;

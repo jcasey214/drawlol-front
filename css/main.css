@@ -342,15 +342,14 @@ footer {
       .game .gameMain .gameInteraction .write {
         display: flex;
         flex-direction: row;
-        justify-content: center;
+        justify-content: space-between;
         align-items: center;
-        width: 100%;
+        width: 800px;
         position: absolute;
         top: 620px; }
         .game .gameMain .gameInteraction .write #sentence {
-          font-size: 1.5em;
-          width: 79%;
-          margin: 10px 0 0 0;
+          font-size: 2em;
+          width: 83%;
           background-color: white;
           border: none;
           padding: 5px; }
@@ -386,7 +385,8 @@ canvas#c, canvas#d, canvas#e {
 .canvasDiv {
   overflow: scroll;
   width: 800px;
-  height: 600px; }
+  height: 600px;
+  box-shadow: -2px 2px 5px 0 rgba(0, 0, 0, 0.4); }
 
 .reviewSheets {
   width: 100%;
@@ -405,15 +405,20 @@ h1.gameHeader {
   color: #4ABDAC; }
 
 h2.gameHeader {
-  font-size: 1.2em;
+  font-size: 1.3em;
   font-weight: bold;
   color: #FC4A1A;
   margin-top: 5px;
-  display: inline; }
+  display: inline;
+  overflow: visible; }
 
 .secondaryHeader {
   width: 60%;
-  overflow-x: scroll; }
+  overflow-x: visible;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center; }
 
 .gameHeaderDiv {
   display: flex;
