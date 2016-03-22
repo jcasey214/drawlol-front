@@ -370,16 +370,18 @@ footer {
           font-size: 3em; }
       .game .gameMain .gameInteraction .canvas-container {
         height: 0 !important; }
-        .game .gameMain .gameInteraction .canvas-container canvas#c, .game .gameMain .gameInteraction .canvas-container canvas#d {
-          overflow: hidden;
-          align-self: flex-start;
-          width: 100%;
-          height: 100%;
-          box-shadow: -2px 2px 5px 0 rgba(0, 0, 0, 0.4); }
-        .game .gameMain .gameInteraction .canvas-container .canvasDiv {
-          overflow: scroll;
-          width: 800px;
-          height: 600px; }
+
+canvas#c, canvas#d, canvas#e {
+  overflow: scroll;
+  align-self: flex-start;
+  width: 100%;
+  height: 100%;
+  box-shadow: -2px 2px 5px 0 rgba(0, 0, 0, 0.4); }
+
+.canvasDiv {
+  overflow: scroll;
+  width: 800px;
+  height: 600px; }
 
 .reviewSheets {
   width: 100%;

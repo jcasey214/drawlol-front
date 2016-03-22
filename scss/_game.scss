@@ -180,21 +180,21 @@
         // height: 90%;
         // width: 100%;
         height: 0 !important;
-        canvas#c, canvas#d{
-          overflow: hidden;
-          align-self: flex-start;
-          width: 100%;
-          height: 100%;
-          box-shadow: $shadow;
-        }
-        .canvasDiv{
-          overflow: scroll;
-          width: 800px;
-          height: 600px;
-        }
       }
     }
   }
+}
+canvas#c, canvas#d, canvas#e{
+  overflow: scroll;
+  align-self: flex-start;
+  width: 100%;
+  height: 100%;
+  box-shadow: $shadow;
+}
+.canvasDiv{
+  overflow: scroll;
+  width: 800px;
+  height: 600px;
 }
 
 .reviewSheets {

@@ -1,6 +1,6 @@
 var io = require('socket.io-client/socket.io.js');
-// var serverURL = 'http://localhost:8000';
-var serverURL = 'https://drawlol-node.herokuapp.com/';
+var serverURL = 'http://localhost:8000';
+// var serverURL = 'https://drawlol-node.herokuapp.com/';
 
 module.exports = angular.module('drawlol').controller('HomeController', function($scope) {
   $scope.greeting = "Hello World!";
@@ -84,7 +84,7 @@ module.exports = angular.module('drawlol').controller('HomeController', function
     $scope.$digest();
     // $scope.allSheets = sheetView($scope.players);
     $scope.players.forEach(function(player, playerIndex){
-      var playerName = new fabric.Text(`${player.username}'s Sheet`, {top: playerIndex * 400 * player.sheet.length, fontFamily: 'Arial'});
+      var playerName = new fabric.Text(`${player.username}'s Sheet`, {top: playerIndex * 500 * (player.sheet.length - 1) + 10, left: 5, fontFamily: 'Arial', stroke: "#4ABDAC", fill: "#4ABDAC"});
       $scope.reviewCanvas.add(playerName);
       player.sheet.forEach(function(item, sheetIndex){
         if(item.match(/^\</)){
@@ -93,12 +93,12 @@ module.exports = angular.module('drawlol').controller('HomeController', function
           fabric.loadSVGFromString(item, function(objects, options) {
             var obj = fabric.util.groupSVGElements(objects, options);
             obj.set({
-              top: (50 + (playerIndex * 400 * player.sheet.length) + (600 * (sheetIndex - 1)))
+              top: (30 + (playerIndex * 500 * (player.sheet.length - 1) + 10) + (500 * (sheetIndex - 1)))
             });
             $scope.reviewCanvas.add(obj).renderAll();
           });
         }else{
-          var sentence = new fabric.Text(item, { top: sheetIndex == 0? (50 + (playerIndex * 400 * player.sheet.length) + (600 * sheetIndex)):(50 + (playerIndex * 400 * player.sheet.length) + (600 * (sheetIndex - 1))) , left: 50, fontFamily: 'Arial'});
+          var sentence = new fabric.Text(item, { top: sheetIndex == 0? (50 + (playerIndex * 500 * (player.sheet.length - 1) + 10) + (500 * sheetIndex)):(50 + (playerIndex * 500 * (player.sheet.length - 1)) + (500 * (sheetIndex - 1))) , left: 50, fontSize: 20, fontFamily: 'Arial', stroke: "#FC4A1A", fill: "#FC4A1A"});
           $scope.reviewCanvas.add(sentence);
         }
       })
