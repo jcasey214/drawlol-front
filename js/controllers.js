@@ -128,7 +128,7 @@ module.exports = angular.module('drawlol').controller('HomeController', function
           $scope.reviewCanvas.add(sentence);
         }
       })
-      var end = new fabric.Text('That\'s all Folks!', {top: (Math.pow($scope.players.length, 2) * 600), left: 50, fontSize: 50, fontFamily: 'Arial'});
+      var end = new fabric.Text('That\'s all Folks!', {top: ($scope.players.length * ((20 * Math.ceil(($scope.players.length + 2) / 2)) + 550 * (Math.floor(($scope.players.length + 2) / 2))) + 150), left: 50, fontSize: 50, fontFamily: 'Arial'});
       $scope.reviewCanvas.add(end);
       $scope.reviewCanvas.renderAll();
     })
@@ -302,6 +302,9 @@ function getNextSheet(round, username, players){
 //   console.log(result);
 //   return result;
 // }
+
+// scope.$parent.players.length * ((20 * Math.ceil((scope.$parent.players.sheet.length + 1) / 2)) + 550 * (Math.floor((scope.$parent.players.sheet.length + 1) / 2)))
+
 function addLineBreaks(string){
   if (string.length < 70) return string;
   var position = 70;

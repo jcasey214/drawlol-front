@@ -37,7 +37,8 @@ angular.module('drawlol')
     scope: false,
     link : function(scope){
       var canvas = window._canvas = new fabric.Canvas('e');
-      canvas.setHeight((Math.pow(scope.$parent.players.length, 2) * 600) + 50);
+      canvas.setHeight(scope.$parent.players.length * ((20 * Math.ceil((scope.$parent.players.length + 2) / 2)) + 550 * (Math.floor((scope.$parent.players.length + 2) / 2))) + 200);
+      // canvas.setHeight((Math.pow(scope.$parent.players.length, 2) * 600) + 50);
       canvas.setWidth(800);
       canvas.backgroundColor = '#ffffff';
       canvas.isDrawingMode = false;
