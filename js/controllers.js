@@ -1,6 +1,6 @@
 var io = require('socket.io-client/socket.io.js');
-// var serverURL = 'http://localhost:8000';
-var serverURL = 'https://drawlol-node.herokuapp.com/';
+var serverURL = 'http://localhost:8000';
+// var serverURL = 'https://drawlol-node.herokuapp.com/';
 
 module.exports = angular.module('drawlol').controller('HomeController', function($scope) {
   $scope.greeting = "Hello World!";
@@ -50,8 +50,19 @@ module.exports = angular.module('drawlol').controller('HomeController', function
     socket.on('joinSuccess', function(data){
       $scope.created_by = data.created_by;
     });
+    // socket.on('finishedGame', function(data){
+    //   // $scope.phase = 'review';
+    //   console.log('finishedGame', data);
+    //   // $scope.players = data.gameData.players;
+    //   return endGame(data.game);
+    // })
   }
   socket = io.connect(serverURL);
+  socket.on('finishedGame', function(data){
+    console.log(data);
+    $scope.username = data.username;
+    return endGame(data.game);
+  });
   socket.on('handshake', function(data){
     socket.emit('joinRoom', {roomName : $scope.room, user: $scope.username});
   });
@@ -85,7 +96,9 @@ module.exports = angular.module('drawlol').controller('HomeController', function
     $scope.allowSubmit = false;
     $scope.$digest();
   });
-  socket.on('gameOver', function(data){
+  socket.on('gameOver', endGame);
+
+  function endGame(data){
     $scope.players = data.players;
     $scope.phase = 'review';
     $scope.allowSubmit = false;
@@ -123,7 +136,7 @@ module.exports = angular.module('drawlol').controller('HomeController', function
     $scope.gameDirections = 'Game Over! Scroll through everyone\'s sheets below.';
     console.log('game over!', $scope.players);
     $scope.$digest();
-  });
+  };
   $scope.chat = function(){
     socket.emit('chatMessage', {message: $scope.chatMessage, room: $scope.room, user: $scope.username})
     $scope.chatMessage = '';
