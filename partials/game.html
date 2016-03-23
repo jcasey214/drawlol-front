@@ -63,7 +63,7 @@
       </div> -->
       <div class="write" ng-hide="gameOver">
         <input type="text" ng-model="sentence" id="sentence" name="sentence" placeholder="Type a sentence here..." ng-show="phase==='view'"></input>
-        <button type="button" ng-click="send()" ng-disabled="!allowSubmit" ng-hide="!gameInProgress">Submit</button>
+        <button type="button" ng-click="send()" ng-disabled="!allowSubmit" ng-hide="!gameInProgress || round==0">Submit</button>
         <div class="utensils" ng-show="phase=='draw'">
           <button type="button" ng-click="selectEraser()"><i class="fa fa-eraser"></i></button>
           <button type="button" ng-click="selectPencil()"><i class="fa fa-pencil"></i></button>
