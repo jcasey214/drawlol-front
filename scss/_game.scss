@@ -245,3 +245,14 @@ h2.gameHeader{
   width: 80%;
   margin-bottom: 9px;
 }
+.downloadButton{
+  width: 800px;
+  background-color: $fresh;
+  border: none;
+  font-size: 2.5em;
+  padding: 5px;
+  color: $clean;
+  box-shadow: $shadow;
+  border-radius: 5px;
+  font-family: $logoFont;
+}

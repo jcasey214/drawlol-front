@@ -26,7 +26,7 @@ module.exports = angular.module('drawlol').controller('HomeController', function
   $scope.showStartButton = false;
   $scope.round = 0;
   $scope.currentSheet = $scope.username;
-  $scope.gameInProgress = false;
+  $scope.gameInProgress = true;
   $scope.phase = 'draw';
   $scope.allowSubmit = false;
   $scope.gameOver = false;
@@ -247,6 +247,15 @@ module.exports = angular.module('drawlol').controller('HomeController', function
     $scope.drawCanvas.freeDrawingBrush.color = '#000000';
     $scope.drawCanvas.freeDrawingBrush.width = 2;
   };
+  $scope.toImage = function(){
+    console.log('clicked');
+      var jpg = $scope.reviewCanvas.toDataURL({
+      format: 'jpeg',
+      quality: 1
+      });
+    download(jpg,'drawlol.jpg');
+  };
+
 }).controller('CompleteController', function($scope){
   $scope.greeting = "Hello World!";
 });
@@ -319,4 +328,10 @@ function getItemPosition(itemNumber, sentenceHeight, imageHeight) {
   var sentences = Math.ceil(itemNumber / 2);
   var images = Math.floor(itemNumber / 2);
   return sentences * sentenceHeight + images * imageHeight;
+}
+function download(url,name){
+  var download = document.createElement('a')
+  download.setAttribute('href', url)
+  download.setAttribute('download', name)
+  download.click();
 }
